@@ -1058,6 +1058,15 @@ xinit(int cols, int rows)
 	xloadfonts(usedfont, 0);
 
 	/* colors */
+
+        {
+            const char *p = getenv("STBG");
+            if (p)
+                colorname[defaultbg] = p;
+            p = getenv("STFG");
+            if (p)
+                colorname[defaultfg] = p;
+        }
 	xw.cmap = XDefaultColormap(xw.dpy, xw.scr);
 	xloadcols();
 
