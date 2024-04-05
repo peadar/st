@@ -2054,6 +2054,10 @@ main(int argc, char *argv[])
 		if (argc > 0)
 			--argc, ++argv;
 		goto run;
+        case 'b':
+                colorname[defaultbg] = EARGF(usage());
+                break;
+
 	case 'f':
 		opt_font = EARGF(usage());
 		break;
