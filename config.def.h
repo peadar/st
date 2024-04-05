@@ -5,7 +5,7 @@
  *
  * font: see http://freedesktop.org/software/fontconfig/fontconfig-user.html
  */
-static char *font = "Liberation Mono:pixelsize=12:antialias=true:autohint=true";
+static char *font = "Source Code Pro:pixelsize=12"; // "Liberation Mono:pixelsize=12:antialias=true:autohint=true";
 static int borderpx = 2;
 
 /*
@@ -96,24 +96,24 @@ unsigned int tabspaces = 8;
 /* Terminal colors (16 first used in escape sequence) */
 static const char *colorname[] = {
 	/* 8 normal colors */
-	"black",
-	"red3",
-	"green3",
-	"yellow3",
-	"blue2",
-	"magenta3",
-	"cyan3",
-	"gray90",
+	"#171421",
+	"#c01c28",
+	"#26a269",
+	"#a2734c",
+	"#12488b",
+	"#a347ba",
+	"#2aa1b3",
+	"#d0cfcc",
 
 	/* 8 bright colors */
-	"gray50",
-	"red",
-	"green",
-	"yellow",
-	"#5c5cff",
-	"magenta",
-	"cyan",
-	"white",
+	"#5e5c64",
+	"#f66151",
+	"#33da7a",
+	"#e9ad0c",
+	"#2a7bde",
+	"#c061cb",
+	"#33c7de",
+	"#ffffff",
 
 	[255] = 0,
 
@@ -147,8 +147,8 @@ static unsigned int cursorshape = 2;
  * Default columns and rows numbers
  */
 
-static unsigned int cols = 80;
-static unsigned int rows = 24;
+static unsigned int cols = 128;
+static unsigned int rows = 48;
 
 /*
  * Default colour and shape of the mouse cursor
