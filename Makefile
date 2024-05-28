@@ -10,7 +10,7 @@ OBJ = $(SRC:.c=.o)
 all: st
 
 config.h:
-	cp config.def.h config.h
+	ln -s config.def.h config.h
 
 .c.o:
 	$(CC) $(STCFLAGS) -c $<
@@ -21,7 +21,7 @@ x.o: arg.h config.h st.h win.h
 $(OBJ): config.h config.mk
 
 st: $(OBJ)
-	$(CC) -o $@ $(OBJ) $(STLDFLAGS)
+	$(CC) -o $@ $(OBJ) $(STLDFLAGS) -Wl,-rpath=/usr/local/lib
 
 clean:
 	rm -f st $(OBJ) st-$(VERSION).tar.gz
