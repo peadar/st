@@ -6,7 +6,7 @@
  * font: see http://freedesktop.org/software/fontconfig/fontconfig-user.html
  */
 static char *font = "Source Code Pro:pixelsize=14"; // "Liberation Mono:pixelsize=12:antialias=true:autohint=true";
-static int borderpx = 2;
+static int borderpx = 0;
 
 /*
  * What program is execed by st depends of these precedence rules:
@@ -122,6 +122,7 @@ static const char *colorname[] = {
 	"#555555",
 	"gray90", /* default foreground colour */
 	"black", /* default background colour */
+	"#555555", /* default border colour */
 };
 
 
@@ -131,8 +132,11 @@ static const char *colorname[] = {
  */
 unsigned int defaultfg = 258;
 unsigned int defaultbg = 259;
+static unsigned int defaultborder = 260;
+
 unsigned int defaultcs = 256;
 static unsigned int defaultrcs = 257;
+static unsigned int borderWidth = 2;
 
 /*
  * Default shape of cursor
