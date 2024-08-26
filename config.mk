@@ -1,7 +1,7 @@
 # st version
 VERSION = 0.9.2
 
-CFLAGS = -O3 -g
+CFLAGS = -g -O
 # Customize below to fit your system
 
 # paths

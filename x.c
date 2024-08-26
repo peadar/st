@@ -730,9 +730,9 @@ cresize(int width, int height)
 	int col, row;
 
 	if (width != 0)
-		win.w = width;
+		win.w = width - borderWidth * 2;
 	if (height != 0)
-		win.h = height;
+		win.h = height - borderWidth * 2;
 
 	col = (win.w - 2 * borderpx) / win.cw;
 	row = (win.h - 2 * borderpx) / win.ch;
@@ -867,14 +867,14 @@ xhints(void)
 	sizeh = XAllocSizeHints();
 
 	sizeh->flags = PSize | PResizeInc | PBaseSize | PMinSize;
-	sizeh->height = win.h;
-	sizeh->width = win.w;
+	sizeh->height = win.h + borderWidth * 2;
+	sizeh->width = win.w + borderWidth * 2;
 	sizeh->height_inc = win.ch;
 	sizeh->width_inc = win.cw;
-	sizeh->base_height = 2 * borderpx;
-	sizeh->base_width = 2 * borderpx;
-	sizeh->min_height = win.ch + 2 * borderpx;
-	sizeh->min_width = win.cw + 2 * borderpx;
+	sizeh->base_height = 2 * (borderWidth + borderpx);
+	sizeh->base_width = 2 * (borderWidth + borderpx);
+	sizeh->min_height = win.ch + 2 * (borderWidth + borderpx);
+	sizeh->min_width = win.cw + 2 * (borderWidth + borderpx);
 	if (xw.isfixed) {
 		sizeh->flags |= PMaxSize;
 		sizeh->min_width = sizeh->max_width = win.w;
@@ -1152,8 +1152,8 @@ xinit(int cols, int rows)
 	xloadcols();
 
 	/* adjust fixed window geometry */
-	win.w = 2 * borderpx + cols * win.cw;
-	win.h = 2 * borderpx + rows * win.ch;
+	win.w = 2 * (borderWidth + borderpx) + cols * win.cw;
+	win.h = 2 * (borderWidth + borderpx) + rows * win.ch;
 	if (xw.gm & XNegative)
 		xw.l += DisplayWidth(xw.dpy, xw.scr) - win.w - 2;
 	if (xw.gm & YNegative)
@@ -1172,7 +1172,7 @@ xinit(int cols, int rows)
 	if (!(opt_embed && (parent = strtol(opt_embed, NULL, 0))))
 		parent = root;
 	xw.win = XCreateWindow(xw.dpy, root, xw.l, xw.t,
-			win.w, win.h, 0, XDefaultDepth(xw.dpy, xw.scr), InputOutput,
+			win.w + borderWidth * 2, win.h + borderWidth * 2, 0, XDefaultDepth(xw.dpy, xw.scr), InputOutput,
 			xw.vis, CWBackPixel | CWBorderPixel | CWBitGravity
 			| CWEventMask | CWColormap, &xw.attrs);
 	if (parent != root)
@@ -1688,11 +1688,11 @@ xdrawline(Line line, int x1, int y1, int x2)
 void
 xfinishdraw(void)
 {
-	XCopyArea(xw.dpy, xw.buf, xw.win, dc.gc, 0, 0, win.w,
-			win.h, 0, 0);
-	XSetForeground(xw.dpy, dc.gc,
-			dc.col[IS_SET(MODE_REVERSE)?
-				defaultfg : defaultbg].pixel);
+	XSetForeground(xw.dpy, dc.gc, dc.col[defaultborder].pixel);
+	XSetLineAttributes(xw.dpy, dc.gc, borderWidth, LineSolid, CapNotLast, JoinMiter );
+	XDrawRectangle(xw.dpy, xw.win, dc.gc, borderWidth / 2, borderWidth / 2, win.w + borderWidth, win.h + borderWidth);
+	XCopyArea(xw.dpy, xw.buf, xw.win, dc.gc, 0, 0, win.w, win.h, borderWidth, borderWidth);
+	XSetForeground(xw.dpy, dc.gc, dc.col[IS_SET(MODE_REVERSE)?  defaultfg : defaultbg].pixel);
 }
 
 void
